@@ -119,7 +119,11 @@ Feature 5: Instagram Reels Auto-Publishing   ──▶ ⏳ [PENDING]
   👉 **[http://localhost:8080/preview.html](http://localhost:8080/preview.html)**
 * *(Or open the file directly: [preview.html](preview.html))*
 
-### 2. View the Generated Video & Audio Files
+### 2. GitHub Repository
+* 🌐 **Live Code on GitHub:** [https://github.com/anshchouksey06/DSAwithAnimation](https://github.com/anshchouksey06/DSAwithAnimation)
+* Branch: `main` (Fully synchronized)
+
+### 3. View the Generated Video & Audio Files
 * 🎬 **Rendered Video:** [output/two-sum-prototype-001/10_final_video.mp4](output/two-sum-prototype-001/10_final_video.mp4)
 * 🎙️ **Narration Audio:** [output/two-sum-prototype-001/06_narration.wav](output/two-sum-prototype-001/06_narration.wav)
 * 📝 **Subtitles:** [output/two-sum-prototype-001/08_subtitles.srt](output/two-sum-prototype-001/08_subtitles.srt)
