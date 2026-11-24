@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "QAReport",
+  "type": "object",
+  "required": ["schema_version", "status", "media_checks", "content_checks", "errors"],
+  "properties": {
+    "schema_version": { "type": "string", "enum": ["1.0"] },
+    "status": { "type": "string", "enum": ["passed", "failed"] },
+    "media_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "status"],
+        "properties": {
+          "name": { "type": "string" },
+          "status": { "type": "string", "enum": ["passed", "failed"] },
+          "details": { "type": "string" }
+        }
+      }
+    },
+    "content_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "status"],
+        "properties": {
+          "name": { "type": "string" },
+          "status": { "type": "string", "enum": ["passed", "failed"] },
+          "details": { "type": "string" }
+        }
+      }
+    },
+    "errors": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

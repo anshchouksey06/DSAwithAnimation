@@ -1,0 +1,27 @@
+1
+00:00:00,000 --> 00:00:06,793
+Welcome to Two Sum. We need to find two distinct indices whose values add up to the target.
+
+2
+00:00:07,293 --> 00:00:14,597
+Here is our array: two, seven, eleven, fifteen. Our target is nine.
+
+3
+00:00:15,097 --> 00:00:24,445
+The brute force way checks every pair. Pair zero and one gives two plus seven equals nine. That is O of n squared time.
+
+4
+00:00:24,945 --> 00:00:35,898
+Can we do better? Yes, with a hash map. Instead of searching repeatedly, we calculate the complement: target minus current value.
+
+5
+00:00:36,398 --> 00:00:58,825
+First, at index zero, value two. Complement is seven. Seven is not in the map, so store two at index zero. Next, at index one, value seven. Complement is two. Two is in our map at index zero! We found our answer: zero and one.
+
+6
+00:00:59,325 --> 00:01:05,739
+The hash map approach runs in linear time, O of n, using O of n extra space.
+
+7
+00:01:06,239 --> 00:01:13,497
+Key takeaway: by trading memory for speed with a hash map, we reduced quadratic time to linear time.

@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "brute_force_tests",
+      "status": "passed",
+      "message": "All unit test cases passed for brute-force"
+    },
+    {
+      "name": "optimized_tests",
+      "status": "passed",
+      "message": "All unit test cases passed for hash-map"
+    },
+    {
+      "name": "differential_tests",
+      "status": "passed",
+      "message": "20 generated test cases produced identical validity"
+    },
+    {
+      "name": "dry_run_consistency",
+      "status": "passed",
+      "message": "Dry-run executed 2 steps and found valid answer [0, 1]"
+    },
+    {
+      "name": "complexity_metadata",
+      "status": "passed",
+      "message": "Time and space complexities correspond to algorithmic bounds"
+    }
+  ],
+  "errors": []
+}

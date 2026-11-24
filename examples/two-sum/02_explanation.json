@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "problem_id": "two-sum",
+  "summary": "Find two distinct indices in an array such that their values sum to a given target.",
+  "key_observations": [
+    "For any number x, we are looking for its complement: target - x.",
+    "A brute-force check tests every pair (i, j) with i < j.",
+    "A hash map can store previously seen numbers and their indices, enabling O(1) lookup for the complement."
+  ],
+  "approaches": [
+    {
+      "id": "brute-force",
+      "name": "Brute Force",
+      "time_complexity": "O(n^2)",
+      "auxiliary_space": "O(1)",
+      "total_space": "O(n)",
+      "idea": "Iterate through every pair of elements using nested loops and check if their sum equals target.",
+      "pseudocode": [
+        "for i from 0 to n-1:",
+        "  for j from i+1 to n-1:",
+        "    if nums[i] + nums[j] == target:",
+        "      return [i, j]"
+      ],
+      "code": "vector<int> twoSum(vector<int>& nums, int target) {\n    int n = nums.size();\n    for (int i = 0; i < n; i++) {\n        for (int j = i + 1; j < n; j++) {\n            if (nums[i] + nums[j] == target) return {i, j};\n        }\n    }\n    return {};\n}",
+      "dry_run_steps": [
+        { "step": 1, "i": 0, "j": 1, "val_i": 2, "val_j": 7, "sum": 9, "target": 9, "match": true }
+      ]
+    },
+    {
+      "id": "hash-map",
+      "name": "Hash Map (One-Pass)",
+      "time_complexity": "O(n) average",
+      "auxiliary_space": "O(n)",
+      "total_space": "O(n)",
+      "idea": "Traverse the array once. For each element, compute its complement (target - nums[i]). If it exists in the hash map, return both indices; otherwise, store the current element and its index.",
+      "pseudocode": [
+        "seen = empty hash map",
+        "for i from 0 to n-1:",
+        "  complement = target - nums[i]",
+        "  if complement in seen:",
+        "    return [seen[complement], i]",
+        "  seen[nums[i]] = i"
+      ],
+      "code": "vector<int> twoSum(vector<int>& nums, int target) {\n    unordered_map<int, int> seen;\n    for (int i = 0; i < nums.size(); i++) {\n        int complement = target - nums[i];\n        if (seen.count(complement)) return {seen[complement], i};\n        seen[nums[i]] = i;\n    }\n    return {};\n}",
+      "dry_run_steps": [
+        { "step": 1, "i": 0, "val": 2, "complement": 7, "in_map": false, "map_state": { "2": 0 } },
+        { "step": 2, "i": 1, "val": 7, "complement": 2, "in_map": true, "result": [0, 1] }
+      ]
+    }
+  ]
+}

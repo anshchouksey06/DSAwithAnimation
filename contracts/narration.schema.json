@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "NarrationScript",
+  "type": "object",
+  "required": ["schema_version", "language", "segments"],
+  "properties": {
+    "schema_version": { "type": "string", "enum": ["1.0"] },
+    "language": { "type": "string", "enum": ["en"] },
+    "segments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["segment_id", "text"],
+        "properties": {
+          "segment_id": { "type": "string" },
+          "text": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0",
+  "total_duration_seconds": 73.997,
+  "total_frames": 2220,
+  "fps": 30,
+  "segments": [
+    {
+      "segment_id": "narr-01-intro",
+      "text": "Welcome to Two Sum. We need to find two distinct indices whose values add up to the target.",
+      "audio_file": "output/two-sum-prototype/audio_segments/narr-01-intro.wav",
+      "raw_duration_seconds": 6.793,
+      "duration_seconds": 7.293,
+      "start_seconds": 0.0,
+      "end_seconds": 7.293,
+      "start_frame": 0,
+      "end_frame": 219,
+      "duration_frames": 219
+    },
+    {
+      "segment_id": "narr-02-problem",
+      "text": "Here is our array: two, seven, eleven, fifteen. Our target is nine.",
+      "audio_file": "output/two-sum-prototype/audio_segments/narr-02-problem.wav",
+      "raw_duration_seconds": 7.304,
+      "duration_seconds": 7.804,
+      "start_seconds": 7.293,
+      "end_seconds": 15.097,
+      "start_frame": 219,
+      "end_frame": 453,
+      "duration_frames": 234
+    },
+    {
+      "segment_id": "narr-03-brute-force",
+      "text": "The brute force way checks every pair. Pair zero and one gives two plus seven equals nine. That is O of n squared time.",
+      "audio_file": "output/two-sum-prototype/audio_segments/narr-03-brute-force.wav",
+      "raw_duration_seconds": 9.348,
+      "duration_seconds": 9.848,
+      "start_seconds": 15.097,
+      "end_seconds": 24.945,
+      "start_frame": 453,
+      "end_frame": 748,
+      "duration_frames": 295
+    },
+    {
+      "segment_id": "narr-04-hashmap-concept",
+      "text": "Can we do better? Yes, with a hash map. Instead of searching repeatedly, we calculate the complement: target minus current value.",
+      "audio_file": "output/two-sum-prototype/audio_segments/narr-04-hashmap-concept.wav",
+      "raw_duration_seconds": 10.953,
+      "duration_seconds": 11.453,
+      "start_seconds": 24.945,
+      "end_seconds": 36.398,
+      "start_frame": 748,
+      "end_frame": 1092,
+      "duration_frames": 344
+    },
+    {
+      "segment_id": "narr-05-hashmap-dryrun",
+      "text": "First, at index zero, value two. Complement is seven. Seven is not in the map, so store two at index zero. Next, at index one, value seven. Complement is two. Two is in our map at index zero! We found our answer: zero and one.",
+      "audio_file": "output/two-sum-prototype/audio_segments/narr-05-hashmap-dryrun.wav",
+      "raw_duration_seconds": 22.427,
+      "duration_seconds": 22.927,
+      "start_seconds": 36.398,
+      "end_seconds": 59.325,
+      "start_frame": 1092,
+      "end_frame": 1780,
+      "duration_frames": 688
+    },
+    {
+      "segment_id": "narr-06-complexity",
+      "text": "The hash map approach runs in linear time, O of n, using O of n extra space.",
+      "audio_file": "output/two-sum-prototype/audio_segments/narr-06-complexity.wav",
+      "raw_duration_seconds": 6.414,
+      "duration_seconds": 6.914,
+      "start_seconds": 59.325,
+      "end_seconds": 66.239,
+      "start_frame": 1780,
+      "end_frame": 1987,
+      "duration_frames": 207
+    },
+    {
+      "segment_id": "narr-07-summary",
+      "text": "Key takeaway: by trading memory for speed with a hash map, we reduced quadratic time to linear time.",
+      "audio_file": "output/two-sum-prototype/audio_segments/narr-07-summary.wav",
+      "raw_duration_seconds": 7.258,
+      "duration_seconds": 7.758,
+      "start_seconds": 66.239,
+      "end_seconds": 73.997,
+      "start_frame": 1987,
+      "end_frame": 2220,
+      "duration_frames": 233
+    }
+  ]
+}

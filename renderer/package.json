@@ -1,0 +1,20 @@
+{
+  "name": "ai-dsa-studio-renderer",
+  "version": "1.0.0",
+  "description": "Deterministic Remotion video renderer for AI DSA Studio",
+  "scripts": {
+    "build": "remotion render src/index.ts TwoSumVideo output/09_silent_video.mp4",
+    "preview": "remotion preview src/index.ts"
+  },
+  "dependencies": {
+    "ffmpeg-static": "^5.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.240"
+  },
+  "devDependencies": {
+    "@remotion/cli": "^4.0.240",
+    "@types/react": "^18.3.12",
+    "typescript": "^5.6.3"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProblemExplanation",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "problem_id",
+    "summary",
+    "key_observations",
+    "approaches"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "enum": ["1.0"] },
+    "problem_id": { "type": "string" },
+    "summary": { "type": "string" },
+    "key_observations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "approaches": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "time_complexity",
+          "auxiliary_space",
+          "total_space",
+          "idea",
+          "pseudocode",
+          "code",
+          "dry_run_steps"
+        ],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "time_complexity": { "type": "string" },
+          "auxiliary_space": { "type": "string" },
+          "total_space": { "type": "string" },
+          "idea": { "type": "string" },
+          "pseudocode": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "code": { "type": "string" },
+          "dry_run_steps": {
+            "type": "array",
+            "items": { "type": "object" }
+          }
+        }
+      }
+    }
+  }
+}

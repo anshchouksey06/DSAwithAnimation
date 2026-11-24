@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI DSA Studio — Prototype 1: Two Sum Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: rgba(22, 28, 45, 0.75);
+      --border: rgba(255, 255, 255, 0.08);
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --accent: #06b6d4;
+      --success: #10b981;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-image: radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+                        radial-gradient(circle at 85% 85%, rgba(6, 182, 212, 0.1) 0%, transparent 40%);
+    }
+
+    header {
+      padding: 1.25rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(12px);
+      background: rgba(11, 15, 25, 0.85);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #6366f1, #06b6d4);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: white;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+    }
+
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(to right, #fff, #cbd5e1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .badges {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .badge-success {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .badge-info {
+      background: rgba(99, 102, 241, 0.15);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+    }
+
+    main {
+      flex: 1;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 460px 1fr;
+      gap: 2.5rem;
+    }
+
+    /* Video Player Column */
+    .player-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.25rem;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .screen-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 380px;
+      aspect-ratio: 9 / 16;
+      background: #000;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+
+    .video-viewport {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Subtitle Styles */
+    .caption-toggle-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 380px;
+      margin-top: 0.85rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .toggle-btn-group {
+      display: flex;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      padding: 2px;
+      border: 1px solid var(--border);
+    }
+
+    .toggle-opt {
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.75rem;
+      transition: all 0.2s;
+    }
+
+    .toggle-opt.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Dedicated Below-Screen Caption Box */
+    .caption-box-below {
+      width: 100%;
+      max-width: 380px;
+      margin-top: 0.5rem;
+      background: rgba(15, 20, 34, 0.9);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      font-size: 0.88rem;
+      line-height: 1.45;
+      color: #fef08a;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Compact In-Video Overlay (Safe Zone Mode) */
+    .subtitle-overlay {
+      position: absolute;
+      bottom: 1.25rem;
+      left: 0.75rem;
+      right: 0.75rem;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.75);
+      border-radius: 8px;
+      padding: 0.4rem 0.75rem;
+      color: #fef08a;
+      font-size: 0.82rem;
+      font-weight: 600;
+      line-height: 1.35;
+      border: 1px solid rgba(254, 240, 138, 0.2);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      display: none;
+    }
+
+    .player-controls {
+      width: 100%;
+      max-width: 380px;
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .timeline-bar-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .timeline-slider {
+      flex: 1;
+      height: 6px;
+      border-radius: 4px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .btn-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .control-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .control-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+    }
+
+    .play-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border: none;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .play-btn:hover {
+      transform: scale(1.06);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.6);
+    }
+
+    /* Details Column */
+    .details-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .section-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.5rem;
+      backdrop-filter: blur(16px);
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .segment-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .segment-item {
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+
+    .segment-item:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(99, 102, 241, 0.4);
+      transform: translateX(4px);
+    }
+
+    .segment-item.active {
+      background: rgba(99, 102, 241, 0.18);
+      border-color: var(--primary);
+    }
+
+    .segment-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .segment-label {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .segment-text {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .segment-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--accent);
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+      background: rgba(6, 182, 212, 0.1);
+      white-space: nowrap;
+    }
+
+    .code-box {
+      background: #0f1422;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: #e2e8f0;
+      line-height: 1.5;
+      overflow-x: auto;
+    }
+
+    .artifacts-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 0.5rem;
+    }
+
+    .artifacts-table th {
+      text-align: left;
+      padding: 0.6rem 0.75rem;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      font-weight: 600;
+    }
+
+    .artifacts-table td {
+      padding: 0.65rem 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .artifact-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .artifact-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <div class="brand-icon">⚡</div>
+      <div class="brand-title">AI DSA Studio &mdash; Prototype 1</div>
+    </div>
+    <div class="badges">
+      <span class="badge badge-success">✓ Verification Passed (5/5 checks)</span>
+      <span class="badge badge-success">✓ QA Status: Passed</span>
+      <span class="badge badge-info">Remotion 1080x1920 @ 30 FPS</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- Left Column: Vertical Player -->
+    <div class="player-card">
+      <div class="screen-wrapper">
+        <!-- Visual Display (Slides synced with timeline) -->
+        <img id="sceneImage" class="video-viewport" src="output/two-sum-prototype/test_still.png" alt="Scene Still">
+        
+        <!-- Live Overlay Subtitle (Safe Zone) -->
+        <div id="subtitleOverlay" class="subtitle-overlay">
+          Welcome to Two Sum. We need to find two distinct indices whose values add up to the target.
+        </div>
+      </div>
+
+      <!-- Caption Display Mode Selector -->
+      <div class="caption-toggle-bar">
+        <span>Caption Placement:</span>
+        <div class="toggle-btn-group">
+          <div id="btnBelow" class="toggle-opt active" onclick="setCaptionMode('below')">Below (Unobstructed)</div>
+          <div id="btnOverlay" class="toggle-opt" onclick="setCaptionMode('overlay')">In-Video Overlay</div>
+        </div>
+      </div>
+
+      <!-- Dedicated Unobstructed Caption Box -->
+      <div id="captionBoxBelow" class="caption-box-below">
+        Welcome to Two Sum. We need to find two distinct indices whose values add up to the target.
+      </div>
+
+      <!-- Controls -->
+      <div class="player-controls">
+        <audio id="audioPlayer" src="output/two-sum-prototype-001/06_narration.wav" preload="auto"></audio>
+        
+        <div class="timeline-bar-wrapper">
+          <span id="currentTime">00:00</span>
+          <input type="range" id="progressBar" class="timeline-slider" min="0" max="74" step="0.1" value="0">
+          <span id="totalTime">01:14</span>
+        </div>
+
+        <div class="btn-row">
+          <button class="control-btn" onclick="seekRelative(-5)" title="Rewind 5s">↺ 5s</button>
+          <button id="playBtn" class="play-btn" title="Play / Pause">▶</button>
+          <button class="control-btn" onclick="seekRelative(5)" title="Forward 5s">5s ↻</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Details & Manifest -->
+    <div class="details-column">
+      <!-- Problem & Explanation -->
+      <div class="section-card">
+        <div class="section-title">💡 Two Sum &mdash; Verified C++ Solution</div>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.75rem;">
+          Given an array of integers <code>nums = [2, 7, 11, 15]</code> and target <code>9</code>, return indices of the two numbers such that they add up to target.
+        </p>
+        <pre class="code-box"><code>#include &lt;vector&gt;
+#include &lt;unordered_map&gt;
+using namespace std;
+
+class Solution {
+public:
+    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) {
+        unordered_map&lt;int, int&gt; num_map;
+        for (int i = 0; i &lt; nums.size(); ++i) {
+            int complement = target - nums[i];
+            if (num_map.count(complement)) {
+                return {num_map[complement], i};
+            }
+            num_map[nums[i]] = i;
+        }
+        return {};
+    }
+}; // Time: O(n) | Auxiliary Space: O(n)</code></pre>
+      </div>
+
+      <!-- Interactive Segments -->
+      <div class="section-card">
+        <div class="section-title">⏱️ Narration & Scene Timeline (Click any to jump & seek)</div>
+        <div class="segment-list" id="segmentList">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Pipeline Artifacts -->
+      <div class="section-card">
+        <div class="section-title">📦 Generated Pipeline Artifacts</div>
+        <table class="artifacts-table">
+          <thead>
+            <tr>
+              <th>Stage Artifact</th>
+              <th>Format</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Final Packaged Video (1080x1920)</td>
+              <td>MP4 (19.0 MB)</td>
+              <td><a class="artifact-link" href="output/two-sum-prototype-001/10_final_video.mp4" target="_blank">View Video ↗</a></td>
+            </tr>
+            <tr>
+              <td>Complete Narration Audio</td>
+              <td>WAV (22kHz, 3.2 MB)</td>
+              <td><a class="artifact-link" href="output/two-sum-prototype-001/06_narration.wav" target="_blank">Listen WAV ↗</a></td>
+            </tr>
+            <tr>
+              <td>Synchronized Subtitles</td>
+              <td>SRT Manifest</td>
+              <td><a class="artifact-link" href="output/two-sum-prototype-001/08_subtitles.srt" target="_blank">Open SRT ↗</a></td>
+            </tr>
+            <tr>
+              <td>Authoritative Narration Timeline</td>
+              <td>JSON Manifest</td>
+              <td><a class="artifact-link" href="output/two-sum-prototype-001/07_narration_timeline.json" target="_blank">Inspect JSON ↗</a></td>
+            </tr>
+            <tr>
+              <td>Automated QA Quality Report</td>
+              <td>JSON Report</td>
+              <td><a class="artifact-link" href="output/two-sum-prototype-001/11_qa_report.json" target="_blank">Inspect QA ↗</a></td>
+            </tr>
+            <tr>
+              <td>Technical Verification Check Report</td>
+              <td>JSON Report</td>
+              <td><a class="artifact-link" href="output/two-sum-prototype-001/03_validation.json" target="_blank">Inspect Verification ↗</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const segments = [
+      {
+        id: "narr-01-intro",
+        title: "1. Intro & Target",
+        text: "Welcome to Two Sum. We need to find two distinct indices whose values add up to the target.",
+        start: 0.0,
+        end: 7.293,
+        image: "output/two-sum-prototype/test_still.png"
+      },
+      {
+        id: "narr-02-problem",
+        title: "2. Problem Input Array",
+        text: "Here is our array: two, seven, eleven, fifteen. Our target is nine.",
+        start: 7.293,
+        end: 15.097,
+        image: "output/two-sum-prototype/scene_array.png"
+      },
+      {
+        id: "narr-03-brute-force",
+        title: "3. Brute Force O(n²)",
+        text: "The brute force way checks every pair. Pair zero and one gives two plus seven equals nine. That is O of n squared time.",
+        start: 15.097,
+        end: 24.945,
+        image: "output/two-sum-prototype/scene_bruteforce.png"
+      },
+      {
+        id: "narr-04-hashmap-concept",
+        title: "4. Hash Map Optimization",
+        text: "Can we do better? Yes, with a hash map. Instead of searching repeatedly, we calculate the complement: target minus current value.",
+        start: 24.945,
+        end: 36.398,
+        image: "output/two-sum-prototype/scene_array.png"
+      },
+      {
+        id: "narr-05-hashmap-dryrun",
+        title: "5. Hash Map Dry Run",
+        text: "First, at index zero, value two. Complement is seven... Two is in our map at index zero! We found our answer: zero and one.",
+        start: 36.398,
+        end: 59.325,
+        image: "output/two-sum-prototype/scene_hashmap.png"
+      },
+      {
+        id: "narr-06-complexity",
+        title: "6. Complexity Analysis",
+        text: "The hash map approach runs in linear time, O of n, using O of n extra space.",
+        start: 59.325,
+        end: 66.239,
+        image: "output/two-sum-prototype/scene_complexity.png"
+      },
+      {
+        id: "narr-07-summary",
+        title: "7. Key Takeaways & Summary",
+        text: "Key takeaway: by trading memory for speed with a hash map, we reduced quadratic time to linear time.",
+        start: 66.239,
+        end: 73.997,
+        image: "output/two-sum-prototype/scene_summary.png"
+      }
+    ];
+
+    const audio = document.getElementById('audioPlayer');
+    const playBtn = document.getElementById('playBtn');
+    const progressBar = document.getElementById('progressBar');
+    const currentTimeEl = document.getElementById('currentTime');
+    const totalTimeEl = document.getElementById('totalTime');
+    const sceneImage = document.getElementById('sceneImage');
+    const subtitleOverlay = document.getElementById('subtitleOverlay');
+    const captionBoxBelow = document.getElementById('captionBoxBelow');
+    const segmentList = document.getElementById('segmentList');
+
+    let isUserDragging = false;
+    let captionMode = 'below';
+
+    function setCaptionMode(mode) {
+      captionMode = mode;
+      document.getElementById('btnBelow').classList.toggle('active', mode === 'below');
+      document.getElementById('btnOverlay').classList.toggle('active', mode === 'overlay');
+
+      if (mode === 'below') {
+        captionBoxBelow.style.display = 'flex';
+        subtitleOverlay.style.display = 'none';
+      } else {
+        captionBoxBelow.style.display = 'none';
+        subtitleOverlay.style.display = 'block';
+      }
+    }
+
+    function formatTime(s) {
+      const mins = Math.floor(s / 60);
+      const secs = Math.floor(s % 60);
+      return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    function updateSceneAndCaption(t) {
+      const activeSeg = segments.find(s => t >= s.start && t < s.end) || segments[segments.length - 1];
+      if (activeSeg) {
+        sceneImage.src = activeSeg.image;
+        subtitleOverlay.innerText = activeSeg.text;
+        captionBoxBelow.innerText = activeSeg.text;
+
+        document.querySelectorAll('.segment-item').forEach(el => el.classList.remove('active'));
+        const activeItem = document.getElementById(`seg-item-${activeSeg.id}`);
+        if (activeItem) activeItem.classList.add('active');
+      }
+    }
+
+    // Render segment list with seek clicks
+    segments.forEach((seg, idx) => {
+      const item = document.createElement('div');
+      item.className = `segment-item ${idx === 0 ? 'active' : ''}`;
+      item.id = `seg-item-${seg.id}`;
+      item.innerHTML = `
+        <div class="segment-info">
+          <div class="segment-label">${seg.title}</div>
+          <div class="segment-text">${seg.text.substring(0, 75)}...</div>
+        </div>
+        <div class="segment-time">${formatTime(seg.start)} - ${formatTime(seg.end)}</div>
+      `;
+      item.onclick = () => {
+        audio.currentTime = seg.start;
+        progressBar.value = seg.start;
+        currentTimeEl.innerText = formatTime(seg.start);
+        updateSceneAndCaption(seg.start);
+        if (audio.paused) audio.play();
+      };
+      segmentList.appendChild(item);
+    });
+
+    playBtn.onclick = () => {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    };
+
+    function seekRelative(delta) {
+      const target = Math.max(0, Math.min(73.9, audio.currentTime + delta));
+      audio.currentTime = target;
+      progressBar.value = target;
+      currentTimeEl.innerText = formatTime(target);
+      updateSceneAndCaption(target);
+    }
+
+    audio.onplay = () => { playBtn.innerText = '❚❚'; };
+    audio.onpause = () => { playBtn.innerText = '▶'; };
+
+    // Scrubbing without fighting ontimeupdate
+    progressBar.addEventListener('mousedown', () => { isUserDragging = true; });
+    progressBar.addEventListener('touchstart', () => { isUserDragging = true; });
+
+    progressBar.addEventListener('input', () => {
+      const t = parseFloat(progressBar.value);
+      currentTimeEl.innerText = formatTime(t);
+      updateSceneAndCaption(t);
+    });
+
+    progressBar.addEventListener('change', () => {
+      const t = parseFloat(progressBar.value);
+      audio.currentTime = t;
+      isUserDragging = false;
+      if (audio.paused) audio.play();
+    });
+
+    audio.ontimeupdate = () => {
+      if (isUserDragging) return;
+      const t = audio.currentTime;
+      progressBar.value = t;
+      currentTimeEl.innerText = formatTime(t);
+      updateSceneAndCaption(t);
+    };
+
+    // Set initial display
+    setCaptionMode('below');
+  </script>
+</body>
+</html>

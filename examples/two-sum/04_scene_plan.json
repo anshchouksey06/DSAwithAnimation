@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0",
+  "aspect_ratio": "9:16",
+  "fps": 30,
+  "scenes": [
+    {
+      "scene_id": "scene-01-intro",
+      "component": "IntroScene",
+      "props": {
+        "title": "Two Sum",
+        "subtitle": "Finding Two Numbers That Add Up to Target",
+        "difficulty": "Easy",
+        "topic": "Arrays & Hashing"
+      },
+      "narration_segment_id": "narr-01-intro"
+    },
+    {
+      "scene_id": "scene-02-array",
+      "component": "ArrayScene",
+      "props": {
+        "values": [2, 7, 11, 15],
+        "target": 9,
+        "title": "Problem Example"
+      },
+      "narration_segment_id": "narr-02-problem"
+    },
+    {
+      "scene_id": "scene-03-bruteforce",
+      "component": "BruteForceScene",
+      "props": {
+        "values": [2, 7, 11, 15],
+        "target": 9,
+        "pointer_i": 0,
+        "pointer_j": 1,
+        "sum": 9,
+        "time_complexity": "O(n²)"
+      },
+      "narration_segment_id": "narr-03-brute-force"
+    },
+    {
+      "scene_id": "scene-04-hashmap-concept",
+      "component": "ArrayScene",
+      "props": {
+        "values": [2, 7, 11, 15],
+        "target": 9,
+        "title": "Optimized Approach: Complement Formula",
+        "formula": "complement = target - nums[i]"
+      },
+      "narration_segment_id": "narr-04-hashmap-concept"
+    },
+    {
+      "scene_id": "scene-05-hashmap-dryrun",
+      "component": "HashMapScene",
+      "props": {
+        "values": [2, 7, 11, 15],
+        "target": 9,
+        "steps": [
+          { "step": 1, "i": 0, "val": 2, "complement": 7, "found": false, "map": { "2": 0 } },
+          { "step": 2, "i": 1, "val": 7, "complement": 2, "found": true, "result": [0, 1] }
+        ]
+      },
+      "narration_segment_id": "narr-05-hashmap-dryrun"
+    },
+    {
+      "scene_id": "scene-06-complexity",
+      "component": "ComplexityScene",
+      "props": {
+        "comparisons": [
+          { "approach": "Brute Force", "time": "O(n²)", "space": "O(1)" },
+          { "approach": "Hash Map", "time": "O(n)", "space": "O(n)" }
+        ]
+      },
+      "narration_segment_id": "narr-06-complexity"
+    },
+    {
+      "scene_id": "scene-07-summary",
+      "component": "SummaryScene",
+      "props": {
+        "title": "Key Takeaways",
+        "points": [
+          "Complement = Target - Current Value",
+          "Hash Map provides O(1) average lookup",
+          "Time reduced from O(n²) to O(n)"
+        ],
+        "result_indices": [0, 1]
+      },
+      "narration_segment_id": "narr-07-summary"
+    }
+  ]
+}

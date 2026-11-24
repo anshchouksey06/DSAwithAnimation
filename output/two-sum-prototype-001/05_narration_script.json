@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "language": "en",
+  "segments": [
+    {
+      "segment_id": "narr-01-intro",
+      "text": "Welcome to Two Sum. We need to find two distinct indices whose values add up to the target."
+    },
+    {
+      "segment_id": "narr-02-problem",
+      "text": "Here is our array: two, seven, eleven, fifteen. Our target is nine."
+    },
+    {
+      "segment_id": "narr-03-brute-force",
+      "text": "The brute force way checks every pair. Pair zero and one gives two plus seven equals nine. That is O of n squared time."
+    },
+    {
+      "segment_id": "narr-04-hashmap-concept",
+      "text": "Can we do better? Yes, with a hash map. Instead of searching repeatedly, we calculate the complement: target minus current value."
+    },
+    {
+      "segment_id": "narr-05-hashmap-dryrun",
+      "text": "First, at index zero, value two. Complement is seven. Seven is not in the map, so store two at index zero. Next, at index one, value seven. Complement is two. Two is in our map at index zero! We found our answer: zero and one."
+    },
+    {
+      "segment_id": "narr-06-complexity",
+      "text": "The hash map approach runs in linear time, O of n, using O of n extra space."
+    },
+    {
+      "segment_id": "narr-07-summary",
+      "text": "Key takeaway: by trading memory for speed with a hash map, we reduced quadratic time to linear time."
+    }
+  ]
+}
